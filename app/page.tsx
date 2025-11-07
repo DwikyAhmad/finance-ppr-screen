@@ -12,7 +12,10 @@ import {
   Activity,
   Table,
   Calendar,
-  ArrowRight
+  ArrowRight,
+  Settings,
+  Gauge,
+  FileCheck
 } from "lucide-react";
 
 interface ProcessCardProps {
@@ -29,7 +32,7 @@ interface ProcessCardProps {
 
 function ProcessCard({ icon, title, lastUpdated, buttons }: ProcessCardProps) {
   return (
-    <Card className="w-[240px] h-[320px] hover:shadow-lg transition-all duration-200 border-gray-200/60 shadow-sm">
+    <Card className="w-[220px] h-[320px] hover:shadow-lg transition-all duration-200 border-blue-200 shadow-sm">
       <CardContent className="p-3 flex flex-col items-center h-full">
         <div className="w-14 h-14 rounded-xl bg-linear-to-br from-blue-50 to-blue-100/50 flex items-center justify-center mb-4 shadow-sm">
           <div className="text-blue-600">
@@ -79,13 +82,13 @@ export default function Home() {
       lastUpdated: "12/15/2024 14:30",
       buttons: [
         {
-          label: "Download",
-          icon: <Download size={15} className="mr-1.5" />,
+          label:"Configuration",
+          icon: <Settings size={15} className="mr-1.5" />,
           variant: "outline" as const,
         },
         {
-          label: "Upload",
-          icon: <Upload size={15} className="mr-1.5" />,
+          label: "Download Gap",
+          icon: <Download size={15} className="mr-1.5" />,
           variant: "default" as const,
         },
       ],
@@ -96,13 +99,8 @@ export default function Home() {
       lastUpdated: "12/15/2024 13:45",
       buttons: [
         {
-          label: "Download",
-          icon: <Download size={15} className="mr-1.5" />,
-          variant: "outline" as const,
-        },
-        {
-          label: "Upload",
-          icon: <Upload size={15} className="mr-1.5" />,
+          label: "Calculate",
+          icon: <Gauge size={15} className="mr-1.5" />,
           variant: "default" as const,
         },
       ],
@@ -125,8 +123,8 @@ export default function Home() {
       lastUpdated: "12/15/2024 15:00",
       buttons: [
         {
-          label: "Start",
-          icon: <Activity size={15} className="mr-1.5" />,
+          label: "Start Approval",
+          icon: <FileCheck size={15} className="mr-1.5" />,
           variant: "default" as const,
         },
       ],
@@ -136,31 +134,38 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100/50 py-10 px-6">
       <div className="max-w-[1400px] mx-auto">
-        {/* Header Tabs */}
-        <div className="flex gap-3 mb-12">
-          <Button 
-            variant="outline" 
-            className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 shadow-sm h-10 px-4 text-[14px] font-medium transition-all"
-          >
-            <Table size={16} className="mr-2" />
-            Maintain Master Data
-          </Button>
+        {/* Header Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6">PPR Inhouse Cost Engine</h1>
+          
+          {/* Tabs */}
+          <div className="flex gap-3">
+            <Button 
+              variant="outline" 
+              className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 shadow-sm h-10 px-4 text-[14px] font-medium transition-all"
+            >
+              <Table size={16} className="mr-2" />
+              Maintain Master Data
+            </Button>
+          </div>
         </div>
 
-        {/* Process Cards with Arrows */}
-        <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-4">
-          {processes.map((process, index) => (
-            <div key={index} className="flex items-center">
-              <ProcessCard {...process} />
-              {index < processes.length - 1 && (
-                <div className="hidden lg:flex mx-2 xl:mx-4">
-                  <div className="w-10 h-10 rounded-lg bg-gray-200/60 flex items-center justify-center">
-                    <ArrowRight size={20} className="text-gray-500" />
+        {/* Process Cards with Arrows - Centered */}
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="flex flex-wrap items-center justify-center gap-0">
+            {processes.map((process, index) => (
+              <div key={index} className="flex items-center">
+                <ProcessCard {...process} />
+                {index < processes.length - 1 && (
+                  <div className="hidden lg:flex mx-3">
+                    <div className="w-10 h-10 rounded-lg bg-gray-200/60 flex items-center justify-center">
+                      <ArrowRight size={20} className="text-gray-500" />
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
